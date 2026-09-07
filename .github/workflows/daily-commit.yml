@@ -1,0 +1,31 @@
+name: Daily Auto Commit
+
+on:
+  schedule:
+    - cron: "0 9 * * *" # runs daily at 9:00 AM UTC
+  workflow_dispatch: # adds a manual "Run workflow" button on GitHub
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config user.name "Your Name"
+          git config user.email "YOUR_EMAIL@example.com"
+
+      - name: Make 10 commits
+        run: |
+          for i in {1..10}; do
+            echo "$(date -u '+%Y-%m-%d %H:%M:%S UTC') - commit $i" >> activity.log
+            git add activity.log
+            git commit -m "Auto commit $i: $(date -u '+%Y-%m-%d')"
+          done
+
+      - name: Push changes
+        run: git push
