@@ -2,26 +2,25 @@ name: Daily Auto Commit
 
 on:
   schedule:
-    - cron: "0 9 * * *" # runs daily at 9:00 AM UTC
-  workflow_dispatch: # adds a manual "Run workflow" button on GitHub
+    - cron: "0 9 * * *"
+  workflow_dispatch:
 
 jobs:
   auto-commit:
     runs-on: ubuntu-latest
     steps:
-      - name: Debug secret length
-        run: echo "Email length is ${#GIT_EMAIL}"
-        env:
-          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Configure git identity
+        env:
+          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+          GIT_NAME: ${{ secrets.GIT_NAME }}
         run: |
-          git config user.name "Your Name"
-          git config user.email "YOUR_EMAIL@example.com"
+          git config user.name "$GIT_NAME"
+          git config user.email "$GIT_EMAIL"
 
       - name: Make 10 commits
         run: |
