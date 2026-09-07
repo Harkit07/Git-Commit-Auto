@@ -19,10 +19,10 @@ The workflow in `.github/workflows/daily-commit.yml`:
 2. Open `.github/workflows/daily-commit.yml`.
 3. Replace the placeholder Git identity values:
 
-	 ```yaml
-	 git config user.name "Your Name"
-	 git config user.email "YOUR_EMAIL@example.com"
-	 ```
+   ```yaml
+   git config user.name "Your Name"
+   git config user.email "YOUR_EMAIL@example.com"
+   ```
 
 4. Ensure Actions are enabled for the repository.
 5. Open **Actions**, select **Daily Auto Commit**, and choose **Run workflow** to test it manually.
