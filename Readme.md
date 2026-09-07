@@ -16,18 +16,14 @@ The workflow in `.github/workflows/daily-commit.yml`:
 ## Setup
 
 1. Push this repository to GitHub.
-2. Open `.github/workflows/daily-commit.yml`.
-3. Replace the placeholder Git identity values:
-
-   ```yaml
-   git config user.name "Your Name"
-   git config user.email "YOUR_EMAIL@example.com"
-   ```
-
+2. Go to **Settings → Secrets and variables → Actions** and add two repository secrets:
+   - `GIT_NAME` — the name to attribute commits to
+   - `GIT_EMAIL` — a verified email on your GitHub account (required for commits to count toward your contribution graph). Verify it at `github.com/settings/emails` if it isn't already.
+3. Go to **Settings → Actions → General → Workflow permissions** and select **Read and write permissions**. This is required for the workflow to push commits back to the repository.
 4. Ensure Actions are enabled for the repository.
 5. Open **Actions**, select **Daily Auto Commit**, and choose **Run workflow** to test it manually.
 
-The default `GITHUB_TOKEN` supplied by GitHub Actions is used to push changes. Repository settings may need to allow workflows to create and approve pull requests or make repository changes, depending on the repository's permissions policy.
+The default `GITHUB_TOKEN` supplied by GitHub Actions is used to push changes.
 
 ## Customize the Schedule
 
@@ -35,8 +31,8 @@ Update the `cron` expression in the workflow to change when the job runs:
 
 ```yaml
 on:
-	schedule:
-		- cron: "0 9 * * *"
+  schedule:
+    - cron: "0 9 * * *"
 ```
 
 Schedules use UTC. The default expression runs once per day at 09:00 UTC.
@@ -56,3 +52,4 @@ For example, `{1..5}` creates five commits per run.
 - Each run appends to `activity.log` and commits the file.
 - Scheduled workflows may be delayed during periods of high GitHub Actions load.
 - Frequent automated commits can make repository history noisy. Use this workflow only where that history is intentional.
+- Scheduled workflows are automatically disabled by GitHub after 60 days of repository inactivity. Push a manual commit occasionally, or re-enable the workflow from the Actions tab if this happens.
