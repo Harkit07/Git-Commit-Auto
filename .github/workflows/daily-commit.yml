@@ -9,6 +9,10 @@ jobs:
   auto-commit:
     runs-on: ubuntu-latest
     steps:
+      - name: Debug secret length
+        run: echo "Email length is ${#GIT_EMAIL}"
+        env:
+          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
