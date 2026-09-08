@@ -7,23 +7,25 @@ It can also be started manually from the repository's **Actions** tab.
 
 The workflow in `.github/workflows/daily-commit.yml`:
 
-1. Runs every day at 05:39 UTC (11:09 IST).
+1. Runs every hour at minute 0 in UTC.
 2. Checks out the repository with full Git history.
 3. Writes a UTC timestamp to `activity.log`.
-4. Creates 39 commits for that day's run.
-5. Pushes the commits back to the repository.
+4. Creates 7 commits for that run.
+5. Pushes the commits back to the repository's `main` branch.
 
 ## Setup
 
 1. Push this repository to GitHub.
-2. Go to **Settings → Secrets and variables → Actions** and add two repository secrets:
+2. Optionally go to **Settings → Secrets and variables → Actions** and add:
    - `GIT_NAME` — the name to attribute commits to
    - `GIT_EMAIL` — a verified email on your GitHub account (required for commits to count toward your contribution graph). Verify it at `github.com/settings/emails` if it isn't already.
+   
+   If these secrets are not set, the workflow falls back to the GitHub actor name and a noreply email automatically.
 3. Go to **Settings → Actions → General → Workflow permissions** and select **Read and write permissions**. This is required for the workflow to push commits back to the repository.
 4. Ensure Actions are enabled for the repository.
-5. Open **Actions**, select **Daily Auto Commit**, and choose **Run workflow** to test it manually.
+5. Open **Actions**, choose the workflow from the list, and select **Run workflow** to test it manually.
 
-The default `GITHUB_TOKEN` supplied by GitHub Actions is used to push changes.
+The workflow uses the default `GITHUB_TOKEN` provided by GitHub Actions to push changes.
 
 ## Customize the Schedule
 
@@ -32,20 +34,20 @@ Update the `cron` expression in the workflow to change when the job runs:
 ```yaml
 on:
   schedule:
-    - cron: "39 5 * * *"
+    - cron: "0 * * * *"
 ```
 
-  Schedules use UTC. The default expression runs once per day at 05:39 UTC (11:09 IST).
+Schedules use UTC. The default expression runs once every hour at minute 0.
 
 ## Customize the Commit Count
 
 Change the loop range to create a different number of commits:
 
 ```bash
-for i in {1..39}; do
+for i in {1..7}; do
 ```
 
-For example, `{1..5}` creates five commits per run.
+For example, `{1..5}` creates five commits per run, while `{1..7}` creates seven per run.
 
 ## Notes
 
