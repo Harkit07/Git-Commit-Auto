@@ -2,7 +2,7 @@ name: Daily Auto Commit
 
 on:
   schedule:
-    - cron: "2-57/5 * * * *"
+    - cron: "1-56/5 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -29,7 +29,7 @@ jobs:
 
           current_hour=$(TZ=Asia/Kolkata date +%H)
           current_minute=$(TZ=Asia/Kolkata date +%M)
-          if [ "$current_hour" = "10" ] && [ "$current_minute" = "47" ]; then
+          if [ "$current_hour" = "10" ] && [ "$current_minute" = "51" ]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
           else
             echo "run=false" >> "$GITHUB_OUTPUT"
