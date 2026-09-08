@@ -25,13 +25,14 @@ jobs:
           git config user.name "$GIT_NAME"
           git config user.email "$GIT_EMAIL"
 
-      - name: Make 39 commits
+      - name: Make 39 commits, 1 per minute
         run: |
           for i in {1..39}; do
             echo "$(date -u '+%Y-%m-%d %H:%M:%S UTC') - commit $i" >> activity.log
             git add activity.log
             git commit -m "Auto commit $i: $(date -u '+%Y-%m-%d')"
+            git push origin HEAD:main
+            if [ $i -lt 39 ]; then
+              sleep 60
+            fi
           done
-
-      - name: Push changes
-        run: git push origin HEAD:main
