@@ -1,11 +1,9 @@
 name: Daily Auto Commit
 
 on:
-  push:
-    paths:
-      - ".github/workflows/daily-commit.yml"
   schedule:
-    - cron: "12 4 * * *"
+    - cron: "42 9 * * *"
+      timezone: "Asia/Kolkata"
   workflow_dispatch:
 
 permissions:
