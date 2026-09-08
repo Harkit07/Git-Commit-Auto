@@ -2,8 +2,7 @@ name: Daily Auto Commit
 
 on:
   schedule:
-    - cron: "59 9 * * *"
-      timezone: "Asia/Kolkata"
+    - cron: "29 4 * * *"
   workflow_dispatch:
 
 permissions:
