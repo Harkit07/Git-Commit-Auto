@@ -2,7 +2,7 @@ name: Daily Auto Commit
 
 on:
   schedule:
-    - cron: "54 5 * * *"
+    - cron: "30 3 * * *"
   workflow_dispatch:
 
 permissions:
