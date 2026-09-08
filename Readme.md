@@ -10,7 +10,7 @@ The workflow in `.github/workflows/daily-commit.yml`:
 1. Runs every day at 04:07 UTC (09:37 IST).
 2. Checks out the repository with full Git history.
 3. Writes a UTC timestamp to `activity.log`.
-4. Creates 10 commits for that day's run.
+4. Creates 60 commits for that day's run.
 5. Pushes the commits back to the repository.
 
 ## Setup
@@ -42,7 +42,7 @@ on:
 Change the loop range to create a different number of commits:
 
 ```bash
-for i in {1..10}; do
+for i in {1..60}; do
 ```
 
 For example, `{1..5}` creates five commits per run.
