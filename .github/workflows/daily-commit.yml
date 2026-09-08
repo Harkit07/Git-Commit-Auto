@@ -2,7 +2,7 @@ name: Daily Auto Commit
 
 on:
   schedule:
-    - cron: "4-59/5 * * * *"
+    - cron: "39 5 * * *"
   workflow_dispatch:
 
 permissions:
@@ -17,26 +17,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Check daily schedule window
-        id: schedule_gate
-        env:
-          EVENT_NAME: ${{ github.event_name }}
-        run: |
-          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          current_hour=$(TZ=Asia/Kolkata date +%H)
-          current_minute=$(TZ=Asia/Kolkata date +%M)
-          if [ "$current_hour" = "11" ] && [ "$current_minute" = "09" ]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "run=false" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Configure git identity
-        if: steps.schedule_gate.outputs.run == 'true'
         env:
           GIT_EMAIL: ${{ secrets.GIT_EMAIL || format('{0}+{1}@users.noreply.github.com', github.actor_id, github.actor) }}
           GIT_NAME: ${{ secrets.GIT_NAME || github.actor }}
@@ -45,7 +26,6 @@ jobs:
           git config user.email "$GIT_EMAIL"
 
       - name: Make 39 commits
-        if: steps.schedule_gate.outputs.run == 'true'
         run: |
           for i in {1..39}; do
             echo "$(date -u '+%Y-%m-%d %H:%M:%S UTC') - commit $i" >> activity.log
@@ -54,5 +34,4 @@ jobs:
           done
 
       - name: Push changes
-        if: steps.schedule_gate.outputs.run == 'true'
         run: git push origin HEAD:main
