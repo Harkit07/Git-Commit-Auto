@@ -2,7 +2,7 @@ name: Daily Auto Commit
 
 on:
   schedule:
-    - cron: "49 9 * * *" # 3:20 PM IST daily
+    - cron: "52 9 * * *" # 3:22 PM IST daily
   workflow_dispatch:
 
 permissions:
@@ -25,14 +25,13 @@ jobs:
           git config user.name "$GIT_NAME"
           git config user.email "$GIT_EMAIL"
 
-      - name: Make 60 commits, 1 per minute
+      - name: Make 60 commits
         run: |
           for i in {1..60}; do
             echo "$(date -u '+%Y-%m-%d %H:%M:%S UTC') - commit $i" >> activity.log
             git add activity.log
             git commit -m "Auto commit $i: $(date -u '+%Y-%m-%d')"
-            git push origin HEAD:main
-            if [ $i -lt 60 ]; then
-              sleep 60
-            fi
           done
+
+      - name: Push all commits
+        run: git push origin HEAD:main
