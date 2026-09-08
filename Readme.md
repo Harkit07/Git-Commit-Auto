@@ -7,7 +7,7 @@ It can also be started manually from the repository's **Actions** tab.
 
 The workflow in `.github/workflows/daily-commit.yml`:
 
-1. Runs every day at 04:32 UTC (10:02 IST).
+1. Runs every day at 04:37 UTC (10:07 IST).
 2. Checks out the repository with full Git history.
 3. Writes a UTC timestamp to `activity.log`.
 4. Creates 60 commits for that day's run.
@@ -32,10 +32,10 @@ Update the `cron` expression in the workflow to change when the job runs:
 ```yaml
 on:
   schedule:
-    - cron: "32 4 * * *"
+    - cron: "37 4 * * *"
 ```
 
-  Schedules use UTC. The default expression runs once per day at 04:32 UTC (10:02 IST).
+  Schedules use UTC. The default expression runs once per day at 04:37 UTC (10:07 IST).
 
 ## Customize the Commit Count
 
