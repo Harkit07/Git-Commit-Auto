@@ -2,7 +2,7 @@ name: Daily Auto Commit
 
 on:
   schedule:
-    - cron: "0 * * * *" # runs every hour, on the hour
+    - cron: "30 11 * * *" # runs daily at 5:00 PM IST (11:30 UTC)
   workflow_dispatch:
 
 permissions:
@@ -25,9 +25,9 @@ jobs:
           git config user.name "$GIT_NAME"
           git config user.email "$GIT_EMAIL"
 
-      - name: Make 7 commits
+      - name: Make 150 commits
         run: |
-          for i in {1..7}; do
+          for i in {1..150}; do
             echo "$(date -u '+%Y-%m-%d %H:%M:%S UTC') - commit $i" >> activity.log
             git add activity.log
             git commit -m "Auto commit $i: $(date -u '+%Y-%m-%d %H:%M UTC')"
