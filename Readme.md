@@ -3,6 +3,17 @@
 GitHub Actions workflow that creates automated activity commits on a schedule.
 It can also be started manually from the repository's **Actions** tab.
 
+## Folder Structure
+
+```text
+.
+├── .github/
+│   └── workflows/
+│       └── daily-commit.yml  # Scheduled GitHub Actions workflow
+├── activity.log              # Timestamp updated by the workflow
+└── Readme.md                 # Project documentation
+```
+
 ## How It Works
 
 The workflow in `.github/workflows/daily-commit.yml`:
