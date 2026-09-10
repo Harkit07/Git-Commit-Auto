@@ -2,8 +2,8 @@ name: Daily Auto Commit
 
 on:
   schedule:
-    - cron: "30 3 * * *" # runs daily at 9:00 AM IST (03:30 UTC)
-    - cron: "30 11 * * *" # runs daily at 5:00 PM IST (11:30 UTC)
+    - cron: "37 3 * * *" # runs daily at ~9:07 AM IST (03:37 UTC)
+    - cron: "37 11 * * *" # runs daily at ~5:07 PM IST (11:37 UTC)
   workflow_dispatch:
 
 permissions:
